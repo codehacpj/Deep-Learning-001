@@ -1,0 +1,825 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{pjnotes}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{deep-learning}{%
+\section{Deep Learning}\label{deep-learning}}
+
+Deep Learning is the most exciting and powerful branch of Machine
+Learning. Deep Learning models can be used for a variety of complex
+tasks:
+
+\begin{verbatim}
+Artificial Neural Networks for Regression and Classification
+Convolutional Neural Networks for Computer Vision
+Recurrent Neural Networks for Time Series Analysis
+Self Organizing Maps for Feature Extraction
+Deep Boltzmann Machines for Recommendation Systems
+Auto Encoders for Recommendation Systems
+\end{verbatim}
+
+In this part, you will understand and learn how to implement the
+following Deep Learning models:
+
+\begin{verbatim}
+Artificial Neural Networks for a Business Problem
+Convolutional Neural Networks for a Computer Vision task
+\end{verbatim}
+
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2018-50-08.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2018-43-24.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2018-45-07.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2018-45-31.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2018-49-44.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2018-45-02.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2018-43-31.png}
+
+    \hypertarget{ann}{%
+\subsection{ANN:}\label{ann}}
+
+Neural networks require lots of data and huge processing power.
+
+\hypertarget{plan-of-attack}{%
+\subsubsection{Plan of attack:}\label{plan-of-attack}}
+
+\begin{figure}
+\centering
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-09-37.png}
+\caption{Screenshot\%20from\%202018-07-11\%2019-09-37.png}
+\end{figure}
+
+    \hypertarget{the-neuron}{%
+\paragraph{The Neuron:}\label{the-neuron}}
+
+The Dendrites are receivers and Axons are the transmitters of the
+neuron.
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-16-56.png}
+
+Synapses:
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-19-01.png}
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-24-25.png}
+The node or the neuron: Input layer, neuron and output signal
+
+The input values are independent variables, They have to be standarized,
+i.e.~need to have mean of 0 and variance 1. Or sometimes we may have to
+normalize them, i.e. X-Xmin/Xmax-Xmin
+
+for output:
+
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-25-23.png}
+if output is categorical:
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-25-26.png}
+one input and one output
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-26-31.png}
+
+weights are necessary for neural net to learn. They mean how much every
+training set has importance for the learning.
+
+In neuron: 1. weighted sum 2. activation function: is applied to
+weighted sum 3. based on outcome of the step 2, it will decide if the
+signal is passed to following neuron or not.
+
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-30-57.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-30-53.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-28-58.png}
+
+\hypertarget{activation-function}{%
+\paragraph{Activation Function}\label{activation-function}}
+
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-38-05.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-37-45.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-37-17.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-36-39.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-36-05.png}
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-39-48.png}
+
+\begin{figure}
+\centering
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-40-37.png}
+\caption{Screenshot\%20from\%202018-07-11\%2019-40-37.png}
+\end{figure}
+
+\hypertarget{how-neural-networks-work}{%
+\paragraph{How Neural Networks work:}\label{how-neural-networks-work}}
+
+We try to predict the housing prices for Real estate using Neural
+networks.
+
+\begin{figure}
+\centering
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-43-57.png}
+\caption{Screenshot\%20from\%202018-07-11\%2019-43-57.png}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-49-12.png}
+\caption{Screenshot\%20from\%202018-07-11\%2019-49-12.png}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-50-00.png}
+\caption{Screenshot\%20from\%202018-07-11\%2019-50-00.png}
+\end{figure}
+
+\hypertarget{how-do-nns-learn}{%
+\paragraph{How do NNs learn:}\label{how-do-nns-learn}}
+
+Either you hard code it or you make a facility for it to learn. SINGLE
+LAYERED FEED FORWARD NN(Perceptron):
+
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-54-18.png}
+\texttt{C} is the cost function. There are many cost functions that can
+be used. but here's one.
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2019-59-20.png}
+feedback---\textgreater{} to minimize the cost function. thus update the
+weights.
+
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-00-33.png}
+After repeating the process for certain number of times we get a optimal
+weights and minimum cost function. This is backpropagation. Example:
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-02-49.png}
+
+\hypertarget{gradient-descent}{%
+\paragraph{Gradient Descent:}\label{gradient-descent}}
+
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-17-58.png}
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-19-15.png}
+say we take different combinations of the weights to determine the cost
+function. But for large weights and large number of neurons we face the
+Curse of Dimentionality
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-20-38.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-22-38.png}
+
+To get out of Curse of Dimentionality we deploy gradient descent:
+
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-23-55.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-24-10.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-24-18.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-25-23.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-25-39.png}
+
+\hypertarget{stochastic-gradient-descent}{%
+\paragraph{Stochastic Gradient
+Descent:}\label{stochastic-gradient-descent}}
+
+Gradient Descent needs the cost function to be convex, Say it is not
+convex(for multidimentional space). Instead of global minimum we may get
+stuck in the local minimum. Stochastic gradient Descent to the rescue.
+Batch gradient descent(is deterministic algo)
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-29-21.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-31-15.png}
+
+Stochastic gradient(is random, probabilistic.) descent we run the neural
+net for every row and adjust the weights everytime. Cuz it is doing one
+iteration at a time, the stochastic gradient descent method is more
+likely to find the global minimum and it is faster than the batch
+gradient descent as it won't have to load all the data at once.
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-34-17.png}
+We use both in a sense that we process small batches at one time and
+thus having good of both ways. This is called minibatch gradient descent
+method
+\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-39-55.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-40-24.png}
+
+\hypertarget{backpropagation}{%
+\paragraph{Backpropagation:}\label{backpropagation}}
+
+\includegraphics{attachment:Stochastic_Gradient_Descent.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-44-12.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-11\%2020-44-08.png}
+
+    \hypertarget{solving-a-business-porblemunusual-churn-ratecertain-set-of-people-leaving-the-bank-in-a-bank-data-with-ann}{%
+\subsection{Solving a Business porblem(Unusual churn rate(certain set of
+people leaving the bank) in a Bank data) with
+ANN:}\label{solving-a-business-porblemunusual-churn-ratecertain-set-of-people-leaving-the-bank-in-a-bank-data-with-ann}}
+
+With the use of data we have to come up with geodemographic segmentation
+model to tell the bank which customers are at highest risk of leaving.
+Here we will use the ANN for this classification problem.
+
+This can be extended to lots of different kinds of problems.
+
+Here for example, same model can be used to determine if the customer
+can be approved for credit or not.
+
+The DL is used computationally intense and high power demanding
+tasks(medicine, computer vision, recommendation machines, business
+problems).
+
+We will need Keras, Theano and Tensorflow 1. Theano : Opensource
+numerical computation library based on numpy. Can run on CPU and GPU(for
+graphic processes like graphic card, has more cores, has more FLOPS
+floating point calculations. is highly specilized for highly
+computationlly intensive tasks and parallel computations. For both
+forward propagation of activations of neurons and backward propagation
+of errors both require parallel compeutations and hence GPUs are more
+favorable).
+
+\begin{figure}
+\centering
+\includegraphics{attachment:Screenshot\%20from\%202018-07-12\%2010-08-31.png}
+\caption{Screenshot\%20from\%202018-07-12\%2010-08-31.png}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Tensorflow: Opensource numerical computation library. runs on CPU and
+  GPU, by google brain and is under Apache2.0 license. For making
+  Deeplearning models from scratch we use Theano or Tensorflow, Here we
+  will use a wrapper Keras for our use.
+\end{enumerate}
+
+\includegraphics{attachment:Screenshot\%20from\%202018-07-12\%2010-31-42.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-12\%2010-32-07.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-12\%2010-32-18.png}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Keras: Wraps Theano and Tensorflow.
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics{attachment:Screenshot\%20from\%202018-07-12\%2010-34-44.png}
+\caption{Screenshot\%20from\%202018-07-12\%2010-34-44.png}
+\end{figure}
+
+Here I made a new conda environment while installing tensorflow.
+\texttt{tensorflow} environment had to have all those libraries and
+hence I installed all the libraries in the tesorflow conda environment,
+I installed notebooks,spyder and pylab, ipython console in this
+environment from the anaconda navigator.Now I go to the navigator change
+the environment to \texttt{tensorflow} from \texttt{root} then launch
+spyder now everything should run fine.
+
+\includegraphics{attachment:Screenshot\%20from\%202018-07-12\%2012-27-36.png}\includegraphics{attachment:Screenshot\%20from\%202018-07-12\%2012-27-29.png}
+
+\hypertarget{now-we-start-building-our-ann}{%
+\subsubsection{Now we start building our
+ANN:}\label{now-we-start-building-our-ann}}
+
+\hypertarget{part-1data-preprocessing}{%
+\paragraph{\texorpdfstring{\texttt{Part-1}:\texttt{Data\ preprocessing}:}{Part-1:Data preprocessing: }}\label{part-1data-preprocessing}}
+
+We use the Classification as the ML model for this problem.
+\texttt{Selecting\ the\ matrix\ of\ features\ and\ determinant\ variable}
+Now we need to take care of
+\texttt{Categorical\ variables\ country\ and\ gender.} To show that the
+categorical variables are not \texttt{ordinal}, i.e there is no meaning
+for 0,1,2 except to determine the category. we create dummy variables,
+we don't do that for gender as when we remove one of the dummies inorder
+to escape the dummy variable trap, there won't be more than one variable
+in case of gender as there are only two genders. from keras I import
+\texttt{sequential\ module} to initialize the NN. And
+\texttt{dense\ module} to build layers of ANN. To initialize ANN it can
+be done either by defining the seqnce of layers or by defining a graph.
+Here it is done by defining the sequence of layers.
+\texttt{classifier\ =\ Sequential()} now adding layers(input layer and
+hidden layer): step 1 is performed by dense module step 2 11 input nodes
+step 3 rectifier func for hidden layers and sigmoid for output step 4
+error calc step 5 error backpropagate and adjust weights step 6 repeat
+till we get epoch step 7 determine number of epochs \#\#\#\#\# Adding
+layers \texttt{classifier.add(Dense())} will take arguments for
+everything \texttt{output\_dim=6}--\textgreater{} number of nodes to add
+in this hidden layer, how many do we need? ---\textgreater{} given by
+parameter tuning(is done by techniques like k-fold cross validation) but
+a tip would be to choose the number of nodes in hidden layer as the
+average of number of nodes in input layer and number of nodes in output
+layrer.i.e. 11(nodes in input layer) and 1(node in output layer as the
+output is binary and it will only have one node.) so 11 + 1 / 2 = 6
+\texttt{init=\textquotesingle{}uniform\textquotesingle{}}--\textgreater{}
+parameter will be responsible for the initialization of
+weights.(randomly uniform)
+\texttt{activation=\textquotesingle{}relu\textquotesingle{}}--\textgreater{}
+parameter will take the activation function for the hidden layers. it
+will be rectifier function here. \texttt{input\_dim} ---\textgreater{}
+compulsory argument for the number of nodes in i/p layers.i.e the number
+of independent variables.
+\texttt{classifier.add(Dense(output\_dim=6,init\ =\ \textquotesingle{}uniform\textquotesingle{},activation=\textquotesingle{}relu\textquotesingle{},\ input\_dim=11))}
+Agian adding new hidden layers
+\texttt{classifier.add(Dense(output\_dim=6,init\ =\ \textquotesingle{}uniform\textquotesingle{},activation=\textquotesingle{}relu\textquotesingle{}))}
+
+ Adding output layer (sigmoid function)
+\texttt{classifier.add(Dense(output\_dim=1,init\ =\ \textquotesingle{}uniform\textquotesingle{},activation=\textquotesingle{}sigmoid\textquotesingle{}))}
+
+ compiling the ANN: i.e.~applying the Stochastic gradient descent on
+whole ANN \texttt{classifier.compile()} will take:
+\texttt{optimizer}--\textgreater{} stochastic gradient descent algorithm
+\texttt{adam} to optimize the weights. \texttt{loss}--\textgreater{}
+loss function within the stochastic gradient descent algorith.
+
+ \texttt{metrics}--\textgreater{} criterion to evaluate the model,
+accuracy is used to evaluate the updates given by each batch.
+\texttt{classifier.compile(optimizer=\textquotesingle{}adam\textquotesingle{},loss=\textquotesingle{}binary\_crossentropy\textquotesingle{},metrics={[}\textquotesingle{}accuracy\textquotesingle{}{]})}
+
+Now choose the number of epochs. i.e.~number of times ANN is trained on
+whole training set: let's see how the accuracy of ANN increases with
+epoch:
+\texttt{classifier.fit(X\_train,y\_train,batch\_size=10,nb\_epoch=100\ )}
+
+Now predict \texttt{y\_pred}:
+\texttt{y\_pred\ =\ classifier.predict(X\_test)} Giving the threshold to
+the probabilities in y\_pred, it can be categorized to 0 or 1 form.
+\texttt{y\_pred\ =\ (y\_pred\textgreater{}0.5)}
+
+ After predicting for the whole set of customers, the probabilities are
+sorted to find the customers that will leave the bank with highest
+probability. Say 10\% of the customers most likely to leave the bank are
+taken into consideration and then for the subject to more sophisticated
+data mining techniques to analyse it in more detail to prevent them from
+leaving. \#\#\# Hence we train the model to get the 86\% accuracy.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Artificial Neural Networks}
+        
+        \PY{c+c1}{\PYZsh{}Installing Theano}
+        \PY{c+c1}{\PYZsh{}pip install \PYZhy{}\PYZhy{}upgrade \PYZhy{}\PYZhy{}no\PYZhy{}deps git+git://github.com/Theano/Theano.git}
+        
+        \PY{c+c1}{\PYZsh{}Installing Tensorflow}
+        \PY{c+c1}{\PYZsh{}from website see notebook}
+        
+        \PY{c+c1}{\PYZsh{} installing keras }
+        \PY{c+c1}{\PYZsh{}pip install \PYZhy{}\PYZhy{}upgrade keras}
+        
+        \PY{c+c1}{\PYZsh{}Part1 \PYZhy{} Data Preprocessing:}
+        \PY{c+c1}{\PYZsh{}Classification :}
+        
+        \PY{c+c1}{\PYZsh{} Importing the libraries}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{c+c1}{\PYZsh{} Importing the dataset}
+        \PY{n}{dataset} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Churn\PYZus{}Modelling.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:}\PY{l+m+mi}{13}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{c+c1}{\PYZsh{}credit score,geography,gender,age,tenure,balance, no.of products, has credit card, activity,est.salary}
+        \PY{n}{y} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{13}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        
+        \PY{c+c1}{\PYZsh{} Encoding categorical data (for gender and country)}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}\PY{p}{,} \PY{n}{OneHotEncoder}
+        \PY{n}{labelencoder\PYZus{}X\PYZus{}1} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+        \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{labelencoder\PYZus{}X\PYZus{}1}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{labelencoder\PYZus{}X\PYZus{}2} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+        \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{labelencoder\PYZus{}X\PYZus{}2}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}to escape the ordinality of the coded variable for the country avoiding this one for gender as when we remove one to escape dummy variable trap there won\PYZsq{}t be more than one variable for the gender feature..}
+        \PY{n}{onehotencoder} \PY{o}{=} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{categorical\PYZus{}features} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{onehotencoder}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Escaping dummy variable trap, we remove one dummy variable.}
+        \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+        
+        
+        \PY{c+c1}{\PYZsh{} Splitting the dataset into the Training set and Test set}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Feature Scaling}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{n}{sc} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+        \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+        \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Part 2 ANN}
+        
+        \PY{c+c1}{\PYZsh{}Importing the Keras library and packages}
+        \PY{k+kn}{import} \PY{n+nn}{keras}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}
+        
+        \PY{c+c1}{\PYZsh{}initializing the ANN}
+        \PY{n}{classifier} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}adding the input layer and 1st hidden layer}
+        \PY{n}{classifier}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{output\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,}\PY{n}{init} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}adding new hidden layer.}
+        \PY{n}{classifier}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{output\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,}\PY{n}{init} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Adding output layer (sigmoid function)}
+        \PY{n}{classifier}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{output\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{init} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Compiling the ANN}
+        \PY{n}{classifier}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}fitting the ANN to the Training set}
+        \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{nb\PYZus{}epoch}\PY{o}{=}\PY{l+m+mi}{100} \PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Predicting the Test set results}
+        \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+        \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.5}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Making the Confusion Matrix}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+        \PY{n}{cm} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+        \PY{n}{score} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The model has }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{score}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{ accuracy!}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{section-5---evaluating-improving-and-tuning-the-ann}{%
+\subsection{Section 5 - Evaluating, Improving and Tuning the
+ANN}\label{section-5---evaluating-improving-and-tuning-the-ann}}
+
+    Here we have to use the K-fold cross validation from sklearn on the
+keras classifier. To do this we use keras wrapper
+\texttt{KerasClassifier} from \texttt{keras.wrappers.scikit\_learn} and
+now we import cross\_val\_score from sklearn.model\_selection.
+\texttt{KerasClassifier} takes one argument as a function, so we define
+a function \texttt{build\_classifier} to build architecture for the ANN.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Importing the libraries}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{c+c1}{\PYZsh{} Importing the dataset}
+        \PY{n}{dataset} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Churn\PYZus{}Modelling.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:}\PY{l+m+mi}{13}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{c+c1}{\PYZsh{}credit score,geography,gender,age,tenure,balance, no.of products, has credit card, activity,est.salary}
+        \PY{n}{y} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{13}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        
+        \PY{c+c1}{\PYZsh{} Encoding categorical data (for gender and country)}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}\PY{p}{,} \PY{n}{OneHotEncoder}
+        \PY{n}{labelencoder\PYZus{}X\PYZus{}1} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+        \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{labelencoder\PYZus{}X\PYZus{}1}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{labelencoder\PYZus{}X\PYZus{}2} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+        \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{labelencoder\PYZus{}X\PYZus{}2}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}to escape the ordinality of the coded variable for the country avoiding this one for gender as when we remove one to escape dummy variable trap there won\PYZsq{}t be more than one variable for the gender feature..}
+        \PY{n}{onehotencoder} \PY{o}{=} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{categorical\PYZus{}features} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{onehotencoder}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Escaping dummy variable trap, we remove one dummy variable.}
+        \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+        
+        
+        \PY{c+c1}{\PYZsh{} Splitting the dataset into the Training set and Test set}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Feature Scaling}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{n}{sc} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+        \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+        \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{}Importing the Keras library and packages}
+        \PY{k+kn}{import} \PY{n+nn}{keras}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}
+        
+        \PY{c+c1}{\PYZsh{} Evaluating,Improving and Tuning the ANN}
+        
+        \PY{c+c1}{\PYZsh{} Evaluating the ANN}
+        \PY{c+c1}{\PYZsh{} Evaluating the ANN}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{wrappers}\PY{n+nn}{.}\PY{n+nn}{scikit\PYZus{}learn} \PY{k}{import} \PY{n}{KerasClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}
+        \PY{k}{def} \PY{n+nf}{build\PYZus{}classifier}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{classifier} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+            \PY{n}{classifier}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{units} \PY{o}{=} \PY{l+m+mi}{6}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}
+            \PY{n}{classifier}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{units} \PY{o}{=} \PY{l+m+mi}{6}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{classifier}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{units} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{classifier}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{classifier}
+        \PY{n}{classifier} \PY{o}{=} \PY{n}{KerasClassifier}\PY{p}{(}\PY{n}{build\PYZus{}fn} \PY{o}{=} \PY{n}{build\PYZus{}classifier}\PY{p}{,} \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{accuracies} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{estimator} \PY{o}{=} \PY{n}{classifier}\PY{p}{,} \PY{n}{X} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{n\PYZus{}jobs} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{mean} \PY{o}{=} \PY{n}{accuracies}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+        \PY{n}{variance} \PY{o}{=} \PY{n}{accuracies}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{improving-the-ann-using-dropout-regularization-to-reduce-overfittingif-needed}{%
+\section{Improving the ANN using dropout regularization to reduce
+overfitting(if
+needed)}\label{improving-the-ann-using-dropout-regularization-to-reduce-overfittingif-needed}}
+
+    While training in each iteration, some neurons of our ANN are randomly
+disabled to prevent them to be too dependent on each other while they
+learn the corelations, Thus overrinding makes it learn several
+independent corelations in data as every time there is new configuration
+of the neurons. This prevents neurons to learn too much and thus
+prevents the overfitting. For this we import \texttt{Dropout} from
+keras.layers lets apply to it to layers.
+\texttt{classifier.add(Dropout())} takes argument \texttt{p} the
+fraction of neurons to be disabled,we do the trails with
+p=0.1,0.2,0.3\ldots{}. and check for overfitting.
+\texttt{we\ can\ add\ this\ in\ all\ the\ layers\ that\ we\ want.}
+
+    \hypertarget{tuning-the-ann}{%
+\section{Tuning the ANN}\label{tuning-the-ann}}
+
+    \hypertarget{gridsearch}{%
+\subsubsection{Gridsearch}\label{gridsearch}}
+
+again we bring in \texttt{KerasClassifier}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{wrappers}\PY{n+nn}{.}\PY{n+nn}{scikit\PYZus{}learn} \PY{k}{import} \PY{n}{KerasClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}
+        \PY{k}{def} \PY{n+nf}{build\PYZus{}classifier}\PY{p}{(}\PY{n}{optimizer}\PY{p}{)}\PY{p}{:}
+            \PY{n}{classifier} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+            \PY{n}{classifier}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{units} \PY{o}{=} \PY{l+m+mi}{6}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}
+            \PY{n}{classifier}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{units} \PY{o}{=} \PY{l+m+mi}{6}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{classifier}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{units} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{classifier}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer} \PY{o}{=} \PY{n}{optimizer}\PY{p}{,} \PY{n}{loss} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{classifier}
+        \PY{n}{classifier} \PY{o}{=} \PY{n}{KerasClassifier}\PY{p}{(}\PY{n}{build\PYZus{}fn} \PY{o}{=} \PY{n}{build\PYZus{}classifier}\PY{p}{)}
+\end{Verbatim}
+
+
+    we don't take the arguments the batch\_size and nb\_epoch as we will use
+gridsearch to find the best values for these. we create a \texttt{dict}
+for every hyperparameters that we want to tune, as keys and the list of
+values for it to try from which we want it to try it from, as the
+values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{parameters} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batch\PYZus{}size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{]}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{]}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{optimizer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmsprop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+        \PY{n}{grid\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{estimator} \PY{o}{=} \PY{n}{classifier}\PY{p}{,}
+                                   \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{n}{parameters}\PY{p}{,}
+                                   \PY{n}{scoring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{n}{cv} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{grid\PYZus{}search} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{n}{best\PYZus{}parameters} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+        \PY{n}{best\PYZus{}accuracy} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
